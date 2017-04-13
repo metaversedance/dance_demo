@@ -72,11 +72,17 @@ function SpringObj(k, damp, x,v) {
 var BoyChar = new Character()
 
 
-var emotionSpring = new SpringObj(10,10,0,0);
-emotionSpring.targetRange.min=0;
-emotionSpring.targetRange.max=1;
-emotionSpring.resetTimeRange = 5
-emotionSpring.setParent(BoyChar)
+var emotionSpringSmirk = new SpringObj(10,10,0,0);
+emotionSpringSmirk.targetRange.min=0;
+emotionSpringSmirk.targetRange.max=1;
+emotionSpringSmirk.resetTimeRange = 5
+emotionSpringSmirk.setParent(BoyChar)
+
+var emotionSpringAwkward = new SpringObj(10,10,0,0);
+emotionSpringAwkward.targetRange.min=0;
+emotionSpringAwkward.targetRange.max=1;
+emotionSpringAwkward.resetTimeRange = 5
+emotionSpringAwkward.setParent(BoyChar)
 
 
 
