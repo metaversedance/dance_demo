@@ -44,19 +44,12 @@ function SpringObj(k, damp, x,v,target) {
     this.parent = parent;
   }
   this.newTarget = function() {
-    var num = Math.random()*this.targetRange.max + this.targetRange.min; // this will get a number between min & max
-    if (this.targetRange.min < 0) { // if min is negative
-      num *= Math.floor(Math.random()*2) == 1 ? 1 : -1; // this will add minus sign in 50% of cases
-      return num;
-    }
-    else { return num}
+    return Math.random()
   }
   this.resetTimeRange = 3;
-  this.targetRange = {min: 1, max: 1000};
   this.updateSpring = function () {
     if (this.active === true) {
      this.resetTimeRange=this.resetTimeRange;
-      this.targetRange=this.targetRange;
 
       this.timeCounter += 0.01;
       if(this.timeCounter>this.timeToReset) {
@@ -76,8 +69,6 @@ var BoyChar = new Character()
 
 
 var emotionSpring = new SpringObj(10,10,.5,1,1);
-emotionSpring.targetRange.min=0;
-emotionSpring.targetRange.max=5;
 emotionSpring.setParent(BoyChar)
 
 
