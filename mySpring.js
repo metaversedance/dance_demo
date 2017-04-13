@@ -66,23 +66,78 @@ function SpringObj(k, damp, x,v) {
 }
 }
 
+function animateEmotions(morphObj) {
+  var morphTargets = morphObj.morphTargetInfluences;
+  setInterval(function(){
+    morphTargets[1] = emotionSpringSad.getSpringX()
+    morphTargets[2] = emotionSpringQuizzical.getSpringX()
+    morphTargets[3] = emotionSpringPouty.getSpringX()
+    morphTargets[4] = emotionSpringMischief.getSpringX()
+    morphTargets[6] = emotionSpringHuh.getSpringX()
+    morphTargets[7] = emotionSpringGasp.getSpringX()
+    morphTargets[8] = emotionSpringDisgusted.getSpringX()
+    morphTargets[9] = emotionSpringAwkward.getSpringX()
 
+  },20)
+}
 
 
 var BoyChar = new Character()
 
+var emotionSpringSad = new SpringObj(10,10,0,0);
+emotionSpringSad.targetRange.min=0;
+emotionSpringSad.targetRange.max=.3;
+emotionSpringSad.resetTimeRange = 5
+emotionSpringSad.setParent(BoyChar)
 
-var emotionSpringSmirk = new SpringObj(10,10,0,0);
-emotionSpringSmirk.targetRange.min=0;
-emotionSpringSmirk.targetRange.max=1;
-emotionSpringSmirk.resetTimeRange = 5
-emotionSpringSmirk.setParent(BoyChar)
+var emotionSpringQuizzical = new SpringObj(10,10,0,0);
+emotionSpringQuizzical.targetRange.min=0;
+emotionSpringQuizzical.targetRange.max=1;
+emotionSpringQuizzical.resetTimeRange = 5
+emotionSpringQuizzical.setParent(BoyChar)
+
+var emotionSpringPouty = new SpringObj(10,10,0,0);
+emotionSpringPouty.targetRange.min=0;
+emotionSpringPouty.targetRange.max=.3;
+emotionSpringPouty.resetTimeRange = 5
+emotionSpringPouty.setParent(BoyChar)
+
+
+
+
+var emotionSpringMischief = new SpringObj(10,10,0,0);
+emotionSpringMischief.targetRange.min=0;
+emotionSpringMischief.targetRange.max=1;
+emotionSpringMischief.resetTimeRange = 5
+emotionSpringMischief.setParent(BoyChar)
+
+
+var emotionSpringHuh = new SpringObj(10,10,0,0);
+emotionSpringHuh.targetRange.min=0;
+emotionSpringHuh.targetRange.max=.3;
+emotionSpringHuh.resetTimeRange = 5
+emotionSpringHuh.setParent(BoyChar)
+
+var emotionSpringGasp = new SpringObj(10,10,0,0);
+emotionSpringGasp.targetRange.min=0;
+emotionSpringGasp.targetRange.max=.2;
+emotionSpringGasp.resetTimeRange = 5
+emotionSpringGasp.setParent(BoyChar)
+
+var emotionSpringDisgusted = new SpringObj(10,10,0,0);
+emotionSpringDisgusted.targetRange.min=0;
+emotionSpringDisgusted.targetRange.max=.3;
+emotionSpringDisgusted.resetTimeRange = 5
+emotionSpringDisgusted.setParent(BoyChar)
+
 
 var emotionSpringAwkward = new SpringObj(10,10,0,0);
 emotionSpringAwkward.targetRange.min=0;
 emotionSpringAwkward.targetRange.max=1;
 emotionSpringAwkward.resetTimeRange = 5
 emotionSpringAwkward.setParent(BoyChar)
+
+
 
 
 
