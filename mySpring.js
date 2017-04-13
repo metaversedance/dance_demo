@@ -83,7 +83,6 @@ function animateEmotions(morphObj) {
 
 
 var BoyChar = new Character()
-
 var emotionSpringSad = new SpringObj(10,10,0,0);
 emotionSpringSad.targetRange.min=0;
 emotionSpringSad.targetRange.max=.3;
@@ -93,13 +92,13 @@ emotionSpringSad.setParent(BoyChar)
 var emotionSpringQuizzical = new SpringObj(10,10,0,0);
 emotionSpringQuizzical.targetRange.min=0;
 emotionSpringQuizzical.targetRange.max=1;
-emotionSpringQuizzical.resetTimeRange = 5
+emotionSpringQuizzical.resetTimeRange = 3
 emotionSpringQuizzical.setParent(BoyChar)
 
 var emotionSpringPouty = new SpringObj(10,10,0,0);
 emotionSpringPouty.targetRange.min=0;
 emotionSpringPouty.targetRange.max=.3;
-emotionSpringPouty.resetTimeRange = 5
+emotionSpringPouty.resetTimeRange = 3
 emotionSpringPouty.setParent(BoyChar)
 
 
@@ -108,33 +107,33 @@ emotionSpringPouty.setParent(BoyChar)
 var emotionSpringMischief = new SpringObj(10,10,0,0);
 emotionSpringMischief.targetRange.min=0;
 emotionSpringMischief.targetRange.max=1;
-emotionSpringMischief.resetTimeRange = 5
+emotionSpringMischief.resetTimeRange = 3
 emotionSpringMischief.setParent(BoyChar)
 
 
 var emotionSpringHuh = new SpringObj(10,10,0,0);
 emotionSpringHuh.targetRange.min=0;
 emotionSpringHuh.targetRange.max=.3;
-emotionSpringHuh.resetTimeRange = 5
+emotionSpringHuh.resetTimeRange = 3
 emotionSpringHuh.setParent(BoyChar)
 
 var emotionSpringGasp = new SpringObj(10,10,0,0);
 emotionSpringGasp.targetRange.min=0;
-emotionSpringGasp.targetRange.max=.2;
-emotionSpringGasp.resetTimeRange = 5
+emotionSpringGasp.targetRange.max=.01;
+emotionSpringGasp.resetTimeRange = 3
 emotionSpringGasp.setParent(BoyChar)
 
 var emotionSpringDisgusted = new SpringObj(10,10,0,0);
 emotionSpringDisgusted.targetRange.min=0;
 emotionSpringDisgusted.targetRange.max=.3;
-emotionSpringDisgusted.resetTimeRange = 5
+emotionSpringDisgusted.resetTimeRange = 3
 emotionSpringDisgusted.setParent(BoyChar)
 
 
 var emotionSpringAwkward = new SpringObj(10,10,0,0);
 emotionSpringAwkward.targetRange.min=0;
 emotionSpringAwkward.targetRange.max=1;
-emotionSpringAwkward.resetTimeRange = 5
+emotionSpringAwkward.resetTimeRange = 3
 emotionSpringAwkward.setParent(BoyChar)
 
 

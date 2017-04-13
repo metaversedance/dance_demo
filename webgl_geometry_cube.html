@@ -15,9 +15,13 @@
 	<body>
 
 		<script src="three.js"></script>
+		<script src="dat.gui.min.js"></script>
 		<script src="mySpring.js"></script>
 
 		<script>
+			var gui = new dat.GUI({
+			    height : 5 * 32 - 1
+			});
 
 			var camera, scene, renderer;
 			var mesh;
@@ -78,6 +82,7 @@
             	boy.updateMatrix();
             	boy.matrixAutoUpdate = false;
             	scene.add(boy)
+            	animateEmotions(boy);
             })
 
 
@@ -118,7 +123,15 @@
 				// //
 
 				window.addEventListener( 'resize', onWindowResize, false );
-				
+				gui.add( emotionSpringSad.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringQuizzical.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringPouty.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringMischief.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringHuh.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringGasp.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringDisgusted.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringAwkward.targetRange , 'max', 0, 1 ).step(.01)
+
 
 			}
 
