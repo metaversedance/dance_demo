@@ -23,18 +23,16 @@ function Character(moodMaster_k, moodMaster_damp) {
 }
 
 
-function SpringObj(k, damp, x,v,target) {
+function SpringObj(k, damp, x,v) {
   this.k = k || 12;
   this.damp = damp || 15
   this.x = x || 0;
   this.v =v || 0 ;
-  this.currentTarget= target || 0;
-  this.newTarget = target || 0;
+  this.currentTarget=0;
+  this.newTarget = 0;
   this.timeToReset=1;
   this.timeCounter = 0;
   this.getSpringX = function () {
-    this.x += this.v * dts2;
-    this.v += ( this.k * this.parent.moodMaster_k * (this.currentTarget - this.x) - this.damp * this.parent.moodMaster_damp * this.v) *dts2;
     return this.x;
   };
   this.active = true;
@@ -43,13 +41,19 @@ function SpringObj(k, damp, x,v,target) {
     parent.springArray.push(this);
     this.parent = parent;
   }
-  this.newTarget = function() {
-    return Math.random()
-  }
+  this.newTarget = function () {
+    var low = this.targetRange.min;
+    var high = this.targetRange.max;
+    return Math.random() * (high - low) + low;
+}
   this.resetTimeRange = 3;
+  this.targetRange = {min: 0, max: 1};
   this.updateSpring = function () {
     if (this.active === true) {
+    this.x += this.v * dts2;
+    this.v += ( this.k * this.parent.moodMaster_k * (this.currentTarget - this.x) - this.damp * this.parent.moodMaster_damp * this.v) *dts2;
      this.resetTimeRange=this.resetTimeRange;
+      this.targetRange=this.targetRange;
 
       this.timeCounter += 0.01;
       if(this.timeCounter>this.timeToReset) {
@@ -68,7 +72,10 @@ function SpringObj(k, damp, x,v,target) {
 var BoyChar = new Character()
 
 
-var emotionSpring = new SpringObj(10,10,.5,1,1);
+var emotionSpring = new SpringObj(10,10,0,0);
+emotionSpring.targetRange.min=0;
+emotionSpring.targetRange.max=1;
+emotionSpring.resetTimeRange = 5
 emotionSpring.setParent(BoyChar)
 
 
