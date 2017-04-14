@@ -12,6 +12,7 @@
 			}
 		</style>
 	</head>
+	<div style="z-index: 5">HELLO</div>
 	<body>
 
 		<script src="three.js"></script>
@@ -38,7 +39,7 @@
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 5000 );
 				camera.position.z = 100;
 				camera.position.x = -100
-				camera.position.y = 50
+				camera.position.y = 30
 
 				scene = new THREE.Scene();
 				light = new THREE.AmbientLight(0x404040)
@@ -123,14 +124,14 @@
 				// //
 
 				window.addEventListener( 'resize', onWindowResize, false );
-				gui.add( emotionSpringSad.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringQuizzical.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringPouty.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringMischief.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringHuh.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringGasp.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringDisgusted.targetRange , 'max', 0, 1 ).step(.01)
-				gui.add( emotionSpringAwkward.targetRange , 'max', 0, 1 ).step(.01)
+				gui.add( emotionSpringSad.targetRange , 'max', 0, 1 ).step(.01).name('sad')
+				gui.add( emotionSpringQuizzical.targetRange , 'max', 0, 1 ).step(.01).name('quizzical')
+				gui.add( emotionSpringPouty.targetRange , 'max', 0, 1 ).step(.01).name('pouty')
+				gui.add( emotionSpringMischief.targetRange , 'max', 0, 1 ).step(.01).name('mischief')
+				gui.add( emotionSpringHuh.targetRange , 'max', 0, 1 ).step(.01).name('confuse')
+				gui.add( emotionSpringGasp.targetRange , 'max', 0, 1 ).step(.01).name('surprise')
+				gui.add( emotionSpringDisgusted.targetRange , 'max', 0, 1 ).step(.01).name('disgust')
+				gui.add( emotionSpringAwkward.targetRange , 'max', 0, 1 ).step(.01).name('awkward')
 
 
 			}
