@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js webgl - geometry - cube</title>
+		<title>Dance Demo</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -15,15 +15,28 @@
 	<div style="z-index: 5">HELLO</div>
 	<body>
 
-		<script src="three.js"></script>
-		<script src="dat.gui.min.js"></script>
-		<script src="mySpring.js"></script>
+		<script src="js/three.js"></script>
+<!-- 		<script src="js/dat.gui.min.js"></script>
+ -->		<script src="js/OrbitControls.js"></script>
 
 		<script>
-			var gui = new dat.GUI({
-			    height : 5 * 32 - 1
-			});
+			
+		 //    var audio = new Audio('audio/the_grey_tapes.mp3')
+			// audio.addEventListener('ended', function() {
+			//     this.currentTime = 0;
+			//     this.play();
+			// }, false);
+			// audio.play()
 
+
+			var clock;
+			var delta;
+			var mixer;
+			var action = {}
+			// var gui = new dat.GUI({
+			//     height : 5 * 32 - 1
+			// });
+			var orbControl;
 			var camera, scene, renderer;
 			var mesh;
 			var ilanaLoader = new THREE.JSONLoader(true);
@@ -33,23 +46,30 @@
 			init();
 			animate();
 
+			function orbit(object, orbitTarget,radius,radians) {
+				orbitTarget = orbitTarget || scene.position;
+				radius = radius || 400;
+				radians = radians || 500;
+			    object.position.x = orbitTarget.position.x + radius * Math.cos( (radians) );         
+			    object.position.z = orbitTarget.position.y + radius * Math.sin( (radians) );
+			}
+
 			function init() {
 
 
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 5000 );
-				camera.position.z = 100;
-				camera.position.x = -100
-				camera.position.y = 30
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 3000;
+
+
 
 				scene = new THREE.Scene();
-				light = new THREE.AmbientLight(0x404040)
+				light = new THREE.AmbientLight(0x404040,1.2)
 				scene.add(light)
 
+				clock = new THREE.Clock();
 
-            var tex = loader.load("boyTexture/tex-diffuse.png");
-            var texNormal = loader.load("boyTexture/tex-normal.png")
-            var aoMap = loader.load("boyTexture/tex-ao.png")
-            var bumpMap = loader.load("boyTexture/tex-roughness.png")
+
+
 
             // var ilanaMat = new THREE.MeshPhongMaterial({
             //     map: ilanaMap,
@@ -60,78 +80,48 @@
             //     shininess: 0,
             // });
 
-             var boyMat = new THREE.MeshPhongMaterial({
+             var dancerMat = new THREE.MeshPhongMaterial({
                 morphTargets: true,
                 emissive: 0.0,
                 alphaTest: 0.5,
                 reflectivity: 0,
-                shininess: 0,
-                map: tex,
-                normalMap: texNormal,
-                aoMap: aoMap,
-                bumpMap: bumpMap
-            });
+                shininess: 0
+               });
 
-            ilanaLoader.load('combinedIntoBlendShapes5.json', function(geometry) {
-            	boy = new THREE.Mesh(geometry, boyMat);
-               boy.scale.x = 500;
-                boy.scale.y = 500;
-                boy.scale.z = 500;
-                boy.position.x = -100;
-                boy.position.y = 300;
-                boy.position.z = -30;
-            	boy.updateMatrix();
-            	boy.matrixAutoUpdate = false;
-            	scene.add(boy)
-            	animateEmotions(boy);
+            ilanaLoader.load('mocap/danceTestSync.json', function(geometry) {
+            	dancer = new THREE.SkinnedMesh(geometry, dancerMat);
+               dancer.scale.x = 10;
+                dancer.scale.y = 10;
+                dancer.scale.z = 10;
+                dancer.position.x = -100;
+                dancer.position.y = -300
+                dancer.position.z = -30;
+            	dancer.updateMatrix();
+            	dancer.matrixAutoUpdate = false;
+
+
+			  	    mixer = new THREE.AnimationMixer( dancer );
+			        mixer.clipAction( dancer.geometry.animations[0]).setEffectiveWeight( 1.0 ).play();
+            	scene.add(dancer)
+
             })
 
 
- 				pointLight = new THREE.PointLight( 0xff0000, 1, 3000 );
-				pointLight.position.set( 50, 50, 50 );
+ 				pointLight = new THREE.PointLight( 0xff0000, 10, 3000 );
+				pointLight.position.set( 50, 50, 300 );
 				scene.add( pointLight );
-
-            // ilanaLoader.load("4mattFace6.js", function(geometry) { //  FACE_ONLY4 MASK_MORPHS.js models/1fmF.js  FACE_ONLYyyyyyy
-            //     ilanaMesh = new THREE.Mesh(geometry, ilanaMat);
-            //     ilanaMesh.scale.x = 10;
-            //     ilanaMesh.scale.y = 10;
-            //     ilanaMesh.scale.z = 10;
-
-            //     // POSITIONS HERE DETERMINE LOCATION OF ROTATION CENTER WITHIN MESH
-            //     ilanaMesh.position.x = 0;
-            //     ilanaMesh.position.y = 0;
-            //     ilanaMesh.position.z = -8;
-            //     ilanaMesh.updateMatrix();
-            //     ilanaMesh.matrixAutoUpdate = false;
-            //     scene.add(ilanaMesh)
-            //     // ilanaGroup.add(ilanaMesh);
-
-            // });
-
-				// var texture = new THREE.TextureLoader().load( 'textures/crate.gif' );
-
-				// var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
-				// var material = new THREE.MeshBasicMaterial( { map: texture } );
-
-				// mesh = new THREE.Mesh( geometry, material );
-				// scene.add( mesh );
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
+				orbControl = new THREE.OrbitControls(camera, renderer.domElement)
+
 
 				// //
 
 				window.addEventListener( 'resize', onWindowResize, false );
-				gui.add( emotionSpringSad.targetRange , 'max', 0, 1 ).step(.01).name('sad')
-				gui.add( emotionSpringQuizzical.targetRange , 'max', 0, 1 ).step(.01).name('quizzical')
-				gui.add( emotionSpringPouty.targetRange , 'max', 0, 1 ).step(.01).name('pouty')
-				gui.add( emotionSpringMischief.targetRange , 'max', 0, 1 ).step(.01).name('mischief')
-				gui.add( emotionSpringHuh.targetRange , 'max', 0, 1 ).step(.01).name('confuse')
-				gui.add( emotionSpringGasp.targetRange , 'max', 0, 1 ).step(.01).name('surprise')
-				gui.add( emotionSpringDisgusted.targetRange , 'max', 0, 1 ).step(.01).name('disgust')
-				gui.add( emotionSpringAwkward.targetRange , 'max', 0, 1 ).step(.01).name('awkward')
+
 
 
 			}
@@ -146,12 +136,17 @@
 			}
 
 			function animate() {
+				delta = clock.getDelta();
+
+				if(pointLight && scene) {
+
+					orbit(pointLight,scene,300,clock.getElapsedTime())
+
+				}
+				if ( mixer ) mixer.update( delta );
 
 				requestAnimationFrame( animate );
-
-				// mesh.rotation.x += 0.005;
-				// mesh.rotation.y += 0.01;
-
+				orbControl.update()
 				renderer.render( scene, camera );
 
 			}
